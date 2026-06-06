@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winston Wallpapers</title>
+
+<style>
+:root{
+--bg:#f4f4f4;
+--text:#111;
+--card:#fff;
+--primary:#0d6efd;
+}
+
+body.dark{
+--bg:#0f0f0f;
+--text:#fff;
+--card:#1e1e1e;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:0.3s;
+}
+
+/* HEADER */
+header{
+background:var(--primary);
+color:white;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+}
+
+/* LOGO */
+.logo{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.logo svg{
+width:40px;
+height:40px;
+}
+
+/* TOP BAR */
+.topbar{
+display:flex;
+justify-content:center;
+gap:10px;
+padding:10px;
+flex-wrap:wrap;
+}
+
+input{
+padding:8px;
+width:250px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+button{
+border:none;
+padding:8px 12px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.darkbtn{background:black;color:white;}
+
+/* ADS */
+.ads{
+margin:15px;
+padding:15px;
+text-align:center;
+background:#ddd;
+border-radius:8px;
+}
+
+/* GALLERY */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+padding:15px;
+}
+
+.card{
+background:var(--card);
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.actions{
+display:flex;
+justify-content:space-around;
+padding:10px;
+}
+
+.like{background:red;color:white;}
+.download{background:green;color:white;}
+.share{background:orange;color:white;}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<!-- SIMPLE PROFESSIONAL SVG LOGO -->
+<svg viewBox="0 0 100 100">
+<circle cx="50" cy="50" r="45" fill="white"/>
+<text x="50" y="60" text-anchor="middle" font-size="40" fill="#0d6efd" font-family="Arial">W</text>
+</svg>
+
+<h2>Winston Wallpapers</h2>
+</div>
+
+</header>
+
+<!-- TOP BAR -->
+<div class="topbar">
+
+<input type="text" id="search" onkeyup="searchWallpapers()" placeholder="Search wallpapers...">
+
+<button class="darkbtn" onclick="toggleDark()">🌙 Dark Mode</button>
+
+</div>
+
+<!-- ADSENSE -->
+<div class="ads">
+📢 AdSense Space (Put Ads Code Here)
+</div>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery">
+
+<div class="card">
+<img src="https://picsum.photos/400/300?1">
+
+<div class="actions">
+<button class="like" onclick="like(this)">❤️ <span>0</span></button>
+<button class="download" onclick="downloadImg(this)">⬇ Download</button>
+<button class="share" onclick="share()">🔗 Share</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/400/300?2">
+
+<div class="actions">
+<button class="like" onclick="like(this)">❤️ <span>0</span></button>
+<button class="download" onclick="downloadImg(this)">⬇ Download</button>
+<button class="share" onclick="share()">🔗 Share</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/400/300?3">
+
+<div class="actions">
+<button class="like" onclick="like(this)">❤️ <span>0</span></button>
+<button class="download" onclick="downloadImg(this)">⬇ Download</button>
+<button class="share" onclick="share()">🔗 Share</button>
+</div>
+</div>
+
+</div>
+
+<script>
+
+// DARK MODE
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+// LIKE
+function like(btn){
+let span = btn.querySelector("span");
+span.innerText = parseInt(span.innerText) + 1;
+}
+
+// DOWNLOAD
+function downloadImg(btn){
+let img = btn.parentElement.parentElement.querySelector("img").src;
+let a = document.createElement("a");
+a.href = img;
+a.download = "winston-wallpaper.jpg";
+a.click();
+}
+
+// SHARE
+function share(){
+if(navigator.share){
+navigator.share({
+title:"Winston Wallpapers",
+url:window.location.href
+});
+}else{
+alert("Copy link: " + window.location.href);
+}
+}
+
+// SEARCH
+function searchWallpapers(){
+let input = document.getElementById("search").value.toLowerCase();
+let cards = document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+card.style.display = card.innerText.toLowerCase().includes(input)
+? "block":"none";
+});
+}
+
+</script>
+
+</body>
+</html>
